@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Cart BD — Rain Shield Transparent Umbrella</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#080b12;
+    --bg-panel:#10151f;
+    --bg-panel-2:#141a26;
+    --line:#232b3a;
+    --blue:#2f8fff;
+    --blue-glow:#7fc0ff;
+    --white:#f4f6fa;
+    --muted:#8b93a7;
+    --green:#6fcf97;
+    --pink:#f2a6c8;
+    --purple:#b18cf2;
+    --skyblue:#7ec8f2;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-deep);
+    color:var(--white);
+    font-family:'Manrope',sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* subtle circuit-grid background wash */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:42px 42px;
+    opacity:.05;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(8,11,18,.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand img{width:42px;height:42px;border-radius:50%;}
+  .brand .name{font-weight:700;font-size:1.05rem;letter-spacing:.02em;}
+  .brand .name span{color:var(--blue-glow);}
+  .brand .tag{font-size:.62rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:-2px;}
+  .call-btn{
+    display:flex;align-items:center;gap:8px;
+    background:var(--blue);color:#04101f;
+    padding:9px 16px;border-radius:999px;
+    font-weight:700;font-size:.85rem;
+    box-shadow:0 0 0 1px rgba(127,192,255,.3), 0 8px 24px -8px rgba(47,143,255,.6);
+    transition:transform .15s ease;
+  }
+  .call-btn:hover{transform:translateY(-1px);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:72px 0 40px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;
+    position:relative;z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;
+    color:var(--blue-glow);letter-spacing:.12em;text-transform:uppercase;
+    border:1px solid rgba(127,192,255,.35);
+    padding:6px 12px;border-radius:999px;
+    margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);}
+  .hero h1{
+    font-size:clamp(2.2rem,4.2vw,3.4rem);
+    line-height:1.08;font-weight:700;
+    letter-spacing:-.01em;
+    margin-bottom:18px;
+  }
+  .hero h1 em{font-style:normal;color:var(--blue-glow);}
+  .hero p.lead{color:var(--muted);font-size:1.05rem;max-width:480px;margin-bottom:28px;}
+  .price-row{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;}
+  .price-now{font-family:'JetBrains Mono',monospace;font-size:2.4rem;font-weight:700;color:var(--white);}
+  .price-was{font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--muted);text-decoration:line-through;}
+  .badge-free{
+    font-size:.7rem;font-weight:700;color:#04101f;background:var(--green);
+    padding:4px 10px;border-radius:6px;letter-spacing:.03em;text-transform:uppercase;
+  }
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--blue);color:#04101f;font-weight:700;
+    padding:15px 26px;border-radius:10px;font-size:.95rem;
+    box-shadow:0 10px 30px -10px rgba(47,143,255,.7);
+    border:none;cursor:pointer;
+  }
+  .btn-ghost{
+    border:1px solid var(--line);color:var(--white);
+    padding:15px 26px;border-radius:10px;font-size:.95rem;font-weight:600;
+    background:transparent;cursor:pointer;
+  }
+
+  /* hero visual: rain + umbrella */
+  .hero-visual{
+    position:relative;height:460px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .rain-field{
+    position:absolute;inset:0;
+    overflow:hidden;
+    border-radius:24px;
+    background:radial-gradient(circle at 50% 20%, rgba(47,143,255,.14), transparent 60%);
+    border:1px solid var(--line);
+  }
+  .pixel-drop{
+    position:absolute;top:-20px;
+    width:4px;height:4px;
+    background:var(--blue-glow);
+    opacity:.7;
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform:translateY(520px); opacity:0; }
+  }
+  .umbrella-shield{
+    position:relative;z-index:3;
+    width:78%;
+    filter:drop-shadow(0 30px 40px rgba(0,0,0,.55));
+    animation:float 5s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+  }
+  .dry-zone{
+    position:absolute;
+    width:230px;height:230px;
+    left:50%;top:38%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(8,11,18,.9) 0%, rgba(8,11,18,0) 72%);
+    z-index:2;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .pixel-drop, .umbrella-shield{animation:none;}
+  }
+
+  /* ---------- Trust bar ---------- */
+  .trust-bar{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--bg-panel);
+  }
+  .trust-inner{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    padding:22px 0;
+  }
+  .trust-item{
+    display:flex;align-items:center;gap:10px;
+    padding:0 20px;
+    border-right:1px solid var(--line);
+    font-size:.85rem;color:var(--muted);
+  }
+  .trust-item:last-child{border-right:none;}
+  .trust-item b{color:var(--white);font-weight:700;display:block;font-size:.9rem;}
+  .trust-icon{
+    width:34px;height:34px;flex:none;border-radius:8px;
+    background:rgba(47,143,255,.12);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--blue-glow);font-size:1rem;
+  }
+
+  /* ---------- Product section ---------- */
+  .section{padding:80px 0;position:relative;z-index:1;}
+  .section-head{max-width:560px;margin-bottom:44px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;margin-bottom:12px;}
+  .section-head p{color:var(--muted);}
+
+  .product-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .gallery-main{
+    border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+    background:var(--bg-panel);
+  }
+  .gallery-main img{width:100%;}
+  .color-strip{display:flex;gap:14px;margin-top:16px;}
+  .color-dot{
+    width:36px;height:36px;border-radius:50%;
+    border:2px solid var(--line);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.6rem;color:transparent;
+    transition:border-color .15s ease;
+  }
+  .color-dot.active{border-color:var(--blue-glow);}
+  .c-green{background:var(--green);} .c-blue{background:var(--skyblue);}
+  .c-pink{background:var(--pink);} .c-purple{background:var(--purple);}
+
+  .spec-list{list-style:none;margin-top:24px;display:flex;flex-direction:column;gap:14px;}
+  .spec-list li{
+    display:flex;gap:12px;font-size:.92rem;color:var(--white);
+    padding-bottom:14px;border-bottom:1px solid var(--line);
+  }
+  .spec-list li span.k{color:var(--muted);min-width:150px;font-family:'JetBrains Mono',monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;}
+
+  /* ---------- Order form ---------- */
+  .order-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:36px;
+  }
+  .order-panel h3{font-size:1.3rem;margin-bottom:6px;}
+  .order-panel .sub{color:var(--muted);font-size:.88rem;margin-bottom:26px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:.78rem;color:var(--muted);margin-bottom:7px;font-family:'JetBrains Mono',monospace;letter-spacing:.03em;text-transform:uppercase;}
+  .field input, .field textarea, .field select{
+    width:100%;background:var(--bg-panel-2);
+    border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;color:var(--white);font-size:.95rem;font-family:'Manrope',sans-serif;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:2px solid var(--blue);outline-offset:1px;border-color:var(--blue);
+  }
+  .field textarea{resize:vertical;min-height:78px;}
+  .row-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .qty-row{display:flex;align-items:center;gap:14px;}
+  .qty-btn{
+    width:38px;height:38px;border-radius:8px;border:1px solid var(--line);
+    background:var(--bg-panel-2);color:var(--white);font-size:1.1rem;cursor:pointer;
+  }
+  .qty-val{font-family:'JetBrains Mono',monospace;font-size:1.05rem;min-width:24px;text-align:center;}
+  .total-row{
+    display:flex;justify-content:space-between;align-items:center;
+    margin:22px 0;padding-top:18px;border-top:1px dashed var(--line);
+  }
+  .total-row .label{color:var(--muted);font-size:.9rem;}
+  .total-row .amount{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--blue-glow);}
+  .submit-btn{
+    width:100%;background:var(--blue);color:#04101f;font-weight:700;
+    padding:16px;border-radius:10px;border:none;font-size:1rem;cursor:pointer;
+    box-shadow:0 10px 30px -10px rgba(47,143,255,.7);
+  }
+  .submit-btn:active{transform:translateY(1px);}
+  .form-note{font-size:.75rem;color:var(--muted);text-align:center;margin-top:14px;}
+  .confirm-box{
+    display:none;margin-top:18px;padding:16px;border-radius:10px;
+    background:rgba(111,207,151,.1);border:1px solid rgba(111,207,151,.4);
+    color:var(--green);font-size:.88rem;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);padding:44px 0 30px;
+    background:var(--bg-panel);
+  }
+  .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;}
+  .footer-brand{display:flex;align-items:center;gap:10px;}
+  .footer-brand img{width:34px;height:34px;border-radius:50%;}
+  .footer-contact{font-size:.88rem;color:var(--muted);}
+  .footer-contact b{color:var(--white);}
+  .footer-bottom{
+    margin-top:30px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:.75rem;color:var(--muted);text-align:center;
+  }
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:340px;order:-1;}
+    .trust-inner{grid-template-columns:repeat(2,1fr);}
+    .trust-item{border-right:none;border-bottom:1px solid var(--line);padding:12px 20px;}
+    .product-grid{grid-template-columns:1fr;}
+    .row-2{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="brand">
+      <img src="images/logo.png" alt="Pixel Cart BD logo">
+      <div>
+        <div class="name">PIXEL <span>CART</span> BD</div>
+        <div class="tag">Shop Smart, Live Better</div>
+      </div>
+    </div>
+    <a class="call-btn" href="tel:01409565027">📞 01409-565027</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">In stock · ঢাকার ভিতরে ও বাইরে ডেলিভারি</div>
+      <h1>Stay dry, <em>stay visible.</em><br>The Rain Shield Umbrella.</h1>
+      <p class="lead">A fully transparent, wind-resistant umbrella with a soft floral edge — see the road, not just the rain. Built for Dhaka's monsoon.</p>
+      <div class="price-row">
+        <span class="price-now">৳550</span>
+        <span class="price-was">৳850</span>
+        <span class="badge-free">Free Delivery</span>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now — ৳550</button>
+        <a class="btn-ghost" href="tel:01409565027">Call to Order</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="rain-field" id="rainField"></div>
+      <div class="dry-zone"></div>
+      <img class="umbrella-shield" src="images/umbrella.jpg" alt="Transparent umbrella shielding from rain">
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="wrap trust-inner">
+    <div class="trust-item"><div class="trust-icon">🚚</div><div><b>Free Delivery</b>Anywhere in Bangladesh</div></div>
+    <div class="trust-item"><div class="trust-icon">💵</div><div><b>Cash on Delivery</b>Pay when it arrives</div></div>
+    <div class="trust-item"><div class="trust-icon">☂️</div><div><b>Wind-Tested</b>Reinforced 8-rib frame</div></div>
+    <div class="trust-item"><div class="trust-icon">✅</div><div><b>Genuine Product</b>Checked before ship</div></div>
+  </div>
+</div>
+
+<section class="section" id="product">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">The product</div>
+      <h2>One umbrella, four moods.</h2>
+      <p>Same clear canopy, same cherry-blossom trim, four edge colors to match your outfit — or your mood on a grey Dhaka morning.</p>
+    </div>
+    <div class="product-grid">
+      <div>
+        <div class="gallery-main">
+          <img src="images/umbrella.jpg" alt="Umbrella color options: green, blue, pink, purple">
+        </div>
+        <div class="color-strip">
+          <div class="color-dot c-green active" title="Green"></div>
+          <div class="color-dot c-blue" title="Blue"></div>
+          <div class="color-dot c-pink" title="Pink"></div>
+          <div class="color-dot c-purple" title="Purple"></div>
+        </div>
+      </div>
+      <div>
+        <ul class="spec-list">
+          <li><span class="k">Price</span> ৳550 per piece — free delivery included</li>
+          <li><span class="k">Canopy</span> Transparent PVC with cherry-blossom print</li>
+          <li><span class="k">Frame</span> 8-rib reinforced, wind resistant</li>
+          <li><span class="k">Colors</span> Green, Blue, Pink, Purple trim</li>
+          <li><span class="k">Fold type</span> 3-fold, compact for bags</li>
+          <li><span class="k">Delivery</span> 2–5 days, cash on delivery available</li>
+          <li><span class="k">Best for</span> Rain, sun, and everyday commutes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="order" style="padding-top:0;">
+  <div class="wrap">
+    <div style="max-width:520px;margin:0 auto;">
+      <div class="order-panel">
+        <h3>Place your order</h3>
+        <div class="sub">Fill in your details — our team will confirm by phone before shipping.</div>
+        <form id="orderForm">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" id="fullName" placeholder="e.g. Rafiul Islam" required>
+          </div>
+          <div class="field">
+            <label>Phone number</label>
+            <input type="tel" id="custPhone" placeholder="01XXXXXXXXX" required pattern="01[0-9]{9}">
+          </div>
+          <div class="field">
+            <label>Full delivery address</label>
+            <textarea id="address" placeholder="House, road, area, thana, district" required></textarea>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label>Umbrella color</label>
+              <select id="color">
+                <option>Green</option>
+                <option>Blue</option>
+                <option>Pink</option>
+                <option>Purple</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Quantity</label>
+              <div class="qty-row">
+                <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span class="qty-val" id="qtyVal">1</span>
+                <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="total-row">
+            <span class="label">Total (delivery free)</span>
+            <span class="amount" id="totalAmount">৳550</span>
+          </div>
+          <button type="submit" class="submit-btn">Confirm Order via WhatsApp</button>
+          <div class="form-note">Cash on Delivery · We'll call <b>01409-565027 ↔ your number</b> to confirm</div>
+          <div class="confirm-box" id="confirmBox">✅ Order details ready — continue in WhatsApp to send it to Pixel Cart BD.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Pixel Cart BD logo">
+        <div>
+          <div style="font-weight:700;">PIXEL CART BD</div>
+          <div style="font-size:.78rem;color:var(--muted);">Shop Smart, Live Better</div>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <div><b>Call / WhatsApp:</b> 01409-565027</div>
+        <div>Delivery all over Bangladesh · Cash on Delivery</div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Pixel Cart BD. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // pixel rain generator
+  const rainField = document.getElementById('rainField');
+  const rainColors = ['#7fc0ff','#2f8fff','#a9d8ff'];
+  for(let i=0;i<46;i++){
+    const d = document.createElement('div');
+    d.className = 'pixel-drop';
+    d.style.left = Math.random()*100 + '%';
+    d.style.background = rainColors[Math.floor(Math.random()*rainColors.length)];
+    d.style.animationDuration = (1.4 + Math.random()*1.6) + 's';
+    d.style.animationDelay = (Math.random()*3) + 's';
+    d.style.opacity = 0.4 + Math.random()*0.5;
+    rainField.appendChild(d);
+  }
+
+  // qty + total
+  const price = 550;
+  let qty = 1;
+  const qtyVal = document.getElementById('qtyVal');
+  const totalAmount = document.getElementById('totalAmount');
+  function changeQty(delta){
+    qty = Math.max(1, qty + delta);
+    qtyVal.textContent = qty;
+    totalAmount.textContent = '৳' + (qty*price);
+  }
+
+  // color swatch selection
+  document.querySelectorAll('.color-dot').forEach(dot=>{
+    dot.addEventListener('click', ()=>{
+      document.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active'));
+      dot.classList.add('active');
+      const label = dot.getAttribute('title');
+      document.getElementById('color').value = label;
+    });
+  });
+
+  // order form -> WhatsApp
+  document.getElementById('orderForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('custPhone').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const color = document.getElementById('color').value;
+    const total = qty*price;
+
+    const msg = `New order from Pixel Cart BD website%0A`+
+      `Product: Rain Shield Transparent Umbrella (${color})%0A`+
+      `Quantity: ${qty}%0A`+
+      `Total: ৳${total} (free delivery)%0A`+
+      `Name: ${name}%0A`+
+      `Phone: ${phone}%0A`+
+      `Address: ${address}`;
+
+    const waLink = `https://wa.me/8801409565027?text=${msg}`;
+    document.getElementById('confirmBox').style.display = 'block';
+    window.open(waLink, '_blank');
+  });
+</script>
+
+</body>
+</html>
